@@ -100,6 +100,26 @@ Add to your `claude_desktop_config.json`:
   }
   ```
 
+## Usage with ChatGPT
+### Installation using `docker`
+Build docker image:
+```bash
+docker build -t mcp-redmine-http -f Dockerfile.mcpproxy .
+```
+
+Run the container:
+```bash
+docker run --rm -p 8080:8080 -e READMINE_URL=http://yourredmineserver.com -e REDMINE_API_KEY=yourredmineapikey -e REDMINE_REQUEST_INSTRUCTIONS=/app/INSTRUCTIONS.md -v /path/to/your/instructions.md:/app/INSTRUCTIONS.md:ro mcp-redmine-http
+```
+
+Start ngrok to proxy the container:
+```bash
+ngrok http 8080
+```
+
+You can now [enable ChatGPT Developer Mode](https://platform.openai.com/docs/guides/developer-mode) and add the proxied MCP server using the ngrok URL returned in teh previous step.
+
+
 ## Environment Variables
 
 - `REDMINE_URL`: URL of your Redmine instance (required)
