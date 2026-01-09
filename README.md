@@ -117,7 +117,7 @@ Start ngrok to proxy the container:
 ngrok http 8080
 ```
 
-You can now [enable ChatGPT Developer Mode](https://platform.openai.com/docs/guides/developer-mode) and add the proxied MCP server using the ngrok URL returned in the previous step.
+You can now [enable ChatGPT Developer Mode](https://platform.openai.com/docs/guides/developer-mode) and add the proxied MCP server using the ngrok URL returned in the previous step appended with `/sse`, for example: `https://chad-moving-apprehensively.ngrok-free.dev/sse`. Set Autorization supported to `None`.
 
 
 ## Environment Variables
