@@ -109,7 +109,7 @@ docker build -t mcp-redmine-http -f Dockerfile.mcpproxy .
 
 Run the container:
 ```bash
-docker run --rm -p 8080:8080 -e READMINE_URL=http://yourredmineserver.com -e REDMINE_API_KEY=yourredmineapikey -e REDMINE_REQUEST_INSTRUCTIONS=/app/INSTRUCTIONS.md -v /path/to/your/instructions.md:/app/INSTRUCTIONS.md:ro mcp-redmine-http
+docker run --rm -p 8080:8080 -e READMINE_URL=hhttps://your-redmine-instance.example.com -e REDMINE_API_KEY=your-api-key -e REDMINE_REQUEST_INSTRUCTIONS=/app/INSTRUCTIONS.md -v /path/to/instructions.md:/app/INSTRUCTIONS.md:ro mcp-redmine-http
 ```
 
 Start ngrok to proxy the container:
