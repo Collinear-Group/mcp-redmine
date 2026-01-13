@@ -1,11 +1,22 @@
-FROM python:3.13-slim
+FROM dhi.io/uv:0-debian13-dev
 
 WORKDIR /app
-
 COPY . /app
 
-RUN pip install --upgrade pip \
-    && pip install uv mcp-proxy \
-    && uv sync 
+# Ensure uv creates/uses a known environment location
+ENV UV_PROJECT_ENVIRONMENT=/opt/venv
 
-CMD ["mcp-proxy", "--port=8080", "--pass-environment", "--transport=streamablehttp", "--stateless", "--host=0.0.0.0", "--", "uv", "run", "--directory", "/app", "-m", "mcp_redmine.server", "main"]
+# Install dependencies (includes mcp-proxy now)
+RUN ["uv", "sync", "--frozen", "--no-dev"]
+
+# Clear inherited entrypoint if the base image sets ENTRYPOINT ["uv"]
+ENTRYPOINT []
+
+EXPOSE 8080
+
+CMD ["uv", "run", "mcp-proxy", \
+     "--sse-port", "8080", \
+     "--sse-host", "0.0.0.0", \
+     "--pass-environment", \
+     "--", \
+     "uv", "run", "--directory", "/app", "-m", "mcp_redmine.server", "main"]
